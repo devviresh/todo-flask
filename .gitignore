@@ -1,5 +1,5 @@
+.envgit
+
 env/
 instance/
-_pycache__/
-.env
-.git 
+__pycache__/
