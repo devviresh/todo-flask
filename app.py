@@ -6,9 +6,11 @@ import os
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join('todo.db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join('todo.db')
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join('/tmp', 'your_database_name.db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://todo_viresh_user:HM7NV621RsocQ0yrkN7vGjXKKs0ve2Rp@dpg-cnknqrn109ks73d2q9ng-a.oregon-postgres.render.com/todo_viresh'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
 
 db = SQLAlchemy(app)
 
