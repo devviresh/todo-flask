@@ -9,8 +9,9 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join('todo.db')
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://todo_viresh_user:HM7NV621RsocQ0yrkN7vGjXKKs0ve2Rp@dpg-cnknqrn109ks73d2q9ng-a.oregon-postgres.render.com/todo_viresh'
+print('evv: ',os.environ.get('DATABASE_URL'))
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
@@ -23,6 +24,8 @@ class Todo(db.Model):
     def __repr__(self) -> str:
         return f"{self.sno} - {self.title} - {self.desc}"
         # return super().__repr__()
+
+
 
 @app.route('/', methods=['GET','POST'])
 def hello_world():
@@ -37,11 +40,16 @@ def hello_world():
     return render_template('index.html',alltodo=all_todo)
     # return 'Hello, Viresh!'
 
+
+
 @app.route('/show')
 def home_go():
     all_todo = Todo.query.all()
     print(all_todo)
     return 'Welcome to home!'
+
+
+
 
 @app.route('/delete/<int:sno>')
 def delete(sno):
@@ -50,6 +58,9 @@ def delete(sno):
     db.session.commit()
     print(todo)
     return redirect('/')
+
+
+
 
 @app.route('/update/<int:sno>', methods=['GET','POST'])
 def update(sno):
